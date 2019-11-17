@@ -42,7 +42,7 @@ void dijkstra(list<pair<int,int>>*adj)
 	
 	for(int i = 0; i < n; i++)
 	{
-		printf("cvor %d je udaljen od 0 za: %d\n", i, distance[i]);
+		printf("vertex %d is away from 0 for: %d\n", i, distance[i]);
 	}
 }
 
