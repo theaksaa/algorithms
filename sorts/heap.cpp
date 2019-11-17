@@ -2,6 +2,8 @@
 #include <algorithm>
 using namespace std;
 
+// n*log(n)
+
 void heapadd(int *x, int i)
 {
     while (i && x[i] < x[(i - 1) / 2])
