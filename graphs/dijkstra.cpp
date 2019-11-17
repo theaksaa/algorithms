@@ -60,4 +60,4 @@ int main()
 		adj[y].push_back({x, t});
 	}
 	dijkstra(adj);
-}
+} 
