@@ -1,4 +1,4 @@
-### Checker/tester
+# Checker/tester
 ## Usage
 If you want to check if your problem solution is correct, this is useful tool for this.
 First make brute force for this problem, then your solution.
