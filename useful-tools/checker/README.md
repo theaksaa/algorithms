@@ -7,5 +7,8 @@ After that run "checker.sh".
 
 NOTE: You need to change code of "gen.cpp" (test generator) to make test case adapted to your problem.
 
+## Example
+Problem used as example: https://codeforces.com/contest/230/problem/B
+
 ## Authors
 Uros Aksentijevic - theaksaa 
