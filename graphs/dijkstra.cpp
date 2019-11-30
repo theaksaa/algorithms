@@ -13,15 +13,16 @@
 using namespace std;
 int n, m;
 
-void dijkstra(list<pair<int,int>>*adj)
+void dijkstra(list<pair<int,int>>*adj, int start_vertex, int end_vertex)
 {
 	bool visited[n];
 	int distance[n];
-	for(int i = 0; i < n; i++) distance[i] = INT_MAX, visited[i] = false;
+	int path[n];
+	for(int i = 0; i < n; i++) distance[i] = INT_MAX, visited[i] = false, path[i] = -1;
 	
-	distance[0] = 0;
+	distance[start_vertex] = 0;
 	queue<int> q;
-	q.push(0);
+	q.push(start_vertex);
 	while(!q.empty())
 	{
 		int s = q.front();
@@ -35,14 +36,18 @@ void dijkstra(list<pair<int,int>>*adj)
 			if(distance[s]+t < distance[c])
 			{
 				distance[c] = distance[s]+t;
+				path[c] = s;
 				q.push(c);
 			}
 		}
 	}
 	
-	for(int i = 0; i < n; i++)
+	printf("distance: %d\n", distance[end_vertex]);
+	int i = end_vertex;
+	while(path[i] != -1)
 	{
-		printf("vertex %d is away from 0 for: %d\n", i, distance[i]);
+		printf("%d ", path[i]);
+		i = path[i];
 	}
 }
 
@@ -59,5 +64,5 @@ int main()
 		adj[x].push_back({y, t});
 		adj[y].push_back({x, t});
 	}
-	dijkstra(adj);
+	dijkstra(adj,0, 2);
 } 
