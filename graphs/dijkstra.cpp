@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+using namespace std;
 
 /*
 5 6
@@ -10,59 +11,49 @@
 2 3 6
 */
 
-using namespace std;
-int n, m;
-
-void dijkstra(list<pair<int,int>>*adj, int start_vertex, int end_vertex)
+int dijkstra(int s, int e, vector<pair<int, int>> *adj, int n)
 {
-	bool visited[n];
 	int distance[n];
-	int path[n];
-	for(int i = 0; i < n; i++) distance[i] = INT_MAX, visited[i] = false, path[i] = -1;
+	bool visited[n];
+	for(int i = 0; i < n; i++) distance[i] = INT_MAX, visited[i] = false;
 	
-	distance[start_vertex] = 0;
-	queue<int> q;
-	q.push(start_vertex);
-	while(!q.empty())
+	distance[s] = 0;
+	
+	priority_queue<pair<int, int>> pq;
+	pq.push(make_pair(0, s));
+	
+	while(!pq.empty())
 	{
-		int s = q.front();
-		q.pop();
-		if(visited[s]) continue;
-		visited[s] = true;
-		for(list<pair<int,int>>::iterator it = adj[s].begin(); it != adj[s].end(); it++)
-		{
-			int c = (*it).first;
-			int t = (*it).second;
-			if(distance[s]+t < distance[c])
+		int c = pq.top().second;
+		pq.pop();
+		
+		if(visited[c]) continue;
+		visited[c] = true;
+		
+		for(pair<int, int> k : adj[c])
+			if(distance[c] + k.second < distance[k.first])
 			{
-				distance[c] = distance[s]+t;
-				path[c] = s;
-				q.push(c);
+				distance[k.first] = distance[c] + k.second;
+				pq.push(make_pair(-distance[k.first], k.first));
 			}
-		}
 	}
-	
-	printf("distance: %d\n", distance[end_vertex]);
-	int i = end_vertex;
-	while(path[i] != -1)
-	{
-		printf("%d ", path[i]);
-		i = path[i];
-	}
+	return distance[e];
 }
 
 int main()
 {
-	
+	int n, m;
 	scanf("%d%d", &n, &m);
-	list<pair<int, int>> adj[n];
+	vector<pair<int, int>> adj[n];
 	
 	for(int i = 0; i < m; i++)
 	{
-		int x, y, t;
-		scanf("%d%d%d", &x, &y, &t);
-		adj[x].push_back({y, t});
-		adj[y].push_back({x, t});
+		int x, y, w;
+		scanf("%d%d%d", &x, &y, &w);
+		adj[x].push_back(make_pair(y, w));
+		adj[y].push_back(make_pair(x, w));
 	}
-	dijkstra(adj,0, 2);
-} 
+	
+	int dist = dijkstra(4, 2, adj, n);
+	printf("dist: %d\n", dist);
+}

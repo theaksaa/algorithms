@@ -1,59 +1,48 @@
-#include <stdio.h>
-#include <list>
-
+#include <bits/stdc++.h>
 using namespace std;
-
 /*
-5 6
+8 9
 0 1
-0 3
-3 4
-1 4
-2 4
+0 5
+1 5
 1 2
-5 4
-0 2
+1 3
 2 3
-0 3
-1 4
+2 5
+4 5
+6 7
 */
 
-int dfs(int s, list<int>*adj, bool *visited)
+int dfs(int s, vector<int> *adj, bool *visited)
 {
-    if(visited[s]) return 0;
-    visited[s] = true;
-    for(list<int>::iterator it = adj[s].begin(); it != adj[s].end(); it++)
-        dfs(*it, adj, visited);
-    return 1;
+	if(visited[s]) return 0;
+	visited[s] = true;
+	
+	for(int e : adj[s])
+		dfs(e, adj, visited);
+		
+	return 1;
 }
 
 int main()
 {
-    int n, m;
-    scanf("%d%d", &n, &m);
-    bool visited[n] = { false };
-    list<int> adj[n];
+	int n, m;
+	scanf("%d%d", &n, &m);
+	vector<int> adj[n];
+	bool *visited = (bool*) calloc(n, sizeof(bool));
+	
+	for(int i = 0; i < m; i++)
+	{
+		int x, y;
+		scanf("%d%d", &x, &y);
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+	
+	int s = 0;
+	for(int i = 0; i < n; i++)
+		if(dfs(i, adj, visited)) s++;
 
-    for(int i = 0; i < m; i++)
-    {
-        int x, y;
-        scanf("%d%d", &x, &y);
-        adj[x].push_back(y);
-        adj[y].push_back(x);
-    }
-
-    int s = 0;
-    for(int i = 0; i < n; i++)
-    {
-        s += dfs(i, adj, visited);
-    }
-
-    printf("sum of isolated graphs: %d\n", s);
-
-    for(int i = 0; i < n; i++)
-    {
-        printf("\nvertex %d is conntected with: ", i);
-        for(list<int>::iterator it = adj[i].begin(); it != adj[i].end(); it++)
-            printf("%d ", *it);
-    }
+	printf("%d\n", s);
 }
+
