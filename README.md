@@ -10,6 +10,8 @@ This is repository of algorithms source codes written in C++
 1. DFS (Depth First Search)
 2. BFS (Breadth First Search)
 3. Dijkstra's algorithm
+### Strings
+1. Boyer–Moore string-search
 
 ## Author:
 Uros Aksentijevic - theaksaa
