@@ -24,17 +24,18 @@ int main()
 			bool flag = true;
 			for(int j = i, z = m - 1; z >= 0; j--, z--) {
 				if(text[j] != pat[z]) {
-					i += suffix[text[j]] == 0 ? m : suffix[text[j]];
+					i += min(m - 1 - z, suffix[text[j]] == 0 ? m : suffix[text[j]]);
 					flag = false;
 					break;
 				}
 			}
 			if(flag) {
 				cout << i - (m - 1) << "\n";
+				i++;
 				//break;
 			}
 		}
-		i += suffix[text[i]] == 0 ? m : suffix[text[i]];
+		else i += suffix[text[i]] == 0 ? m : suffix[text[i]];
 	}
 	return 0; 
 }
